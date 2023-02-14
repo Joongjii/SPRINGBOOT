@@ -1,0 +1,17 @@
+package com.mc.bookmanager.jpa;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class EntityTemplate {
+	
+	private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("a_jpa");
+	
+	//엔티티매니저는 스레드세이프하지않기에 반드시 지역에서 생성
+	public static EntityManager getEntityManager() {
+		return EMF.createEntityManager();
+	}
+	
+	
+}

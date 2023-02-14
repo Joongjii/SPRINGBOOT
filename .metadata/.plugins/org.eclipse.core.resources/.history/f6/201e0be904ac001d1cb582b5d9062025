@@ -1,0 +1,28 @@
+package com.mc.bookmanager.member;
+
+import javax.persistence.EntityManager;
+
+import com.mc.bookmanager.jpa.EntityTemplate;
+
+public class MemberService {
+
+	public Member findMemberById(String userId) {
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		Member member = null;
+		
+		try {
+			member = em.find(Member.class, userId);
+		} finally {
+			//EntityManager 종료
+			//EntityManager를 종료하면 Entity들은 더이상 EntityManager의 관리대상이 아니게된다.
+			// close : 엔티티매니저 종료
+			// clear : 엔티티매니저 초기화 엔티티매니저가 관리하고있던 모든 엔티티들을 준영속 상태로 변경
+			// detach : 특정 엔티티를 준영속 상태로 변경할때 사용
+			em.close();
+		}
+		
+		return member;
+	}
+
+}

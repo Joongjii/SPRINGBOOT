@@ -1,0 +1,15 @@
+package com.mc.bookmanager.book;
+
+import java.util.List;
+
+import com.mc.bookmanager.member.MemberService;
+import com.mc.bookmanager.member.dto.MemberDto;
+
+public class BookController {
+	private BookService bookService = new BookService();
+	
+	public List<MemberDto> findAllBook() {
+		return bookService.findAllMember();
+	}
+
+}

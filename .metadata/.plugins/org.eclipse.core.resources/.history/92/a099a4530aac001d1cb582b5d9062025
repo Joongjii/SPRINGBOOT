@@ -1,0 +1,21 @@
+package com.mc.bookmanager.member;
+
+import java.util.List;
+
+public class MemberController {
+	
+	private MemberService memberService = new MemberService();
+	
+	public Member findMemberByID(String userId) {
+	Member member = memberService.findMemberById(userId);
+		return member;
+	}
+	
+	public List<Member> findAllMember(){
+		return memberService.findAllMember();
+	}
+	
+	public boolean signUp(Member join) {
+		return memberService.createMember(join);
+	}
+}

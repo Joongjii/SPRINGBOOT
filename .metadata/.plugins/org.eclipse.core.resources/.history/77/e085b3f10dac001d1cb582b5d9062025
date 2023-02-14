@@ -1,0 +1,106 @@
+package com.mc.bookmanager.member;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import com.mc.bookmanager.jpa.EntityTemplate;
+
+public class MemberService {
+	
+	private MemberRepository memberRepository = new MemberRepository();
+	
+	public Member findMemberById(String userId) {
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		Member member = null;
+		
+		try {
+			member = em.find(Member.class, userId);
+		} finally {
+			//EntityManager 종료
+			//EntityManager를 종료하면 Entity들은 더이상 EntityManager의 관리대상이 아니게된다.
+			// close : 엔티티매니저 종료
+			// clear : 엔티티매니저 초기화 엔티티매니저가 관리하고있던 모든 엔티티들을 준영속 상태로 변경
+			// detach : 특정 엔티티를 준영속 상태로 변경할때 사용
+			em.close();
+		}
+		
+		return member;
+	}
+	public List<Member> findAllMember(){
+		List<Member> members = null;
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		
+		try {
+			members = memberRepository.findAllMember(em);
+		} finally {
+		em.close();
+		}
+		
+		return members;
+	}
+	public boolean createMember(Member join) {
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
+		//트랜잭션 시작
+		tx.begin();
+		
+		try {
+			em.persist(join);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			em.close();
+		}
+		
+		return false;
+	}
+	public boolean updateMember(Member member) {
+		
+		EntityManager em = EntityTemplate.getEntityManager();
+		EntityTransaction tx= em.getTransaction();
+		tx.begin();
+		
+		try {
+			
+			//영속 상태 entity
+			Member entity = em.find(Member.class, member.getUserId());
+			
+			//엔티티매니저가 관리하는 엔티티의 속성이 변경되었음으로
+			//엔티티매니저는 트랜잭션이 커밋되는 시점에 변경된 내용을 영속화 -> dirty check
+			entity.setPassword(member.getPassword());
+			entity.setEmail(member.getEmail());
+			entity.setTell(member.getTell());
+			
+			System.out.println("entity : " + entity);
+			System.out.println("member : " + member);
+			
+			//매니저가 관리하는 영속이 아니라 비영속이기떄문에
+			member.setPassword("zz");
+			member.setEmail("zz");
+			member.setTell("zz");
+			
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+		}finally {
+			em.close();
+		}
+		
+		
+		return false;
+	}
+	
+	
+	
+}

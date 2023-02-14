@@ -1,0 +1,7 @@
+package com.mc.bookmanager.member;
+
+public class MemberRepository {
+	public List<Member> findAllMember(EntityManager em){
+		
+	}
+}
