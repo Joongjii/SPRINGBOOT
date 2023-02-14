@@ -20,6 +20,7 @@ public class BookService {
 		
 		try {
 			books = bookRepository.findAllBook(em);
+			
 		} finally {
 			em.close();
 		}

@@ -40,7 +40,7 @@ public class BookMenu {
             //bookController의 registBook 메서드를 호출해 도서정보를 추가
             //도서가 성공적으로 추가되면 "도서 추가 성공"
             //도서 추가에 실패하면 "도서 추가 실패" 출력
-        	 if(BookController.registBook(join())){
+        	 if(BookController.registBook(join()){
 					System.out.println("도서 추가 성공.");
 				}else {
 					System.out.println("도서 추가 실패");
