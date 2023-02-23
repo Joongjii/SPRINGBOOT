@@ -40,7 +40,7 @@ public class BookMenu {
             //bookController의 registBook 메서드를 호출해 도서정보를 추가
             //도서가 성공적으로 추가되면 "도서 추가 성공"
             //도서 추가에 실패하면 "도서 추가 실패" 출력
-        	 if(BookController.registBook(join()){
+        	 if(bookController.registBook(registBook())){
 					System.out.println("도서 추가 성공.");
 				}else {
 					System.out.println("도서 추가 실패");
@@ -51,16 +51,19 @@ public class BookMenu {
             //수정할 도서의 도서번호와 도서 소개(info컬럼)를 사용자로 부터 입력받아
             //bookController 의 updateBook을 호출해 도서 소개를 수정하고
             //성공하면 "도서 수정 성공", 실패하면 "도서 수정 실패"를 출력하시오.
-            sc.nextLine();
-        	BookDto book = new BookDto();
-            System.out.print("수정할 도서번호를 입력하세요 : ");
-            long bkIdx = sc.nextLong();
-            sc.nextLine();
-            System.out.print("수정할 도서 소개를 입력하세요 : ");
-            String info = sc.nextLine();
-			if(!info.equals("")) {
-				book.setInfo(info);
-			}
+        	 sc.nextLine();
+				System.out.print("수정할 도서번호를 입력하세요 : ");
+				long bkIdx = sc.nextLong();
+				sc.nextLine();
+				System.out.print("수정할 도서 소개를 입력하세요 : ");
+				String info = sc.nextLine();
+				
+				if(bookController.updateBookInfo(bkIdx, info)) {
+					System.out.println("도서 수정 성공!");
+				}else {
+					System.out.println("도서 수정 실패");
+				}
+				
             
             
             break;
@@ -69,11 +72,16 @@ public class BookMenu {
             //삭제할 도서의 도서번호를 사용자로 부터 입력받아
             //bookController 의 removeBook 메서드를 호출하고
             //도서 삭제에 성공하면 "도서 삭제 성공", 실패하면 "도서 삭제 실패" 출력
-            System.out.print("삭제할 도서 번호 : ");
-            bkIdx = sc.nextLong();
-            
-         
-            break;
+        	 System.out.print("삭제할 도서 번호 : ");
+				bkIdx = sc.nextLong();
+				
+				if(bookController.removeBook(bkIdx)) {
+					System.out.println("도서 삭제 성공");
+				}else {
+					System.out.println("도서 삭제 실패");
+				}
+			
+				break;
             
          //searchBookMenu 메서드를 호출해 도서 검색 메뉴창 출력
          case 5: searchBookMenu(); break;      
@@ -97,11 +105,20 @@ public class BookMenu {
             //bookController의 searchBookByTitle 메서드에 사용자가 입력한
             //도서명을 전달하고 결과를 출력하시오.   
             System.out.print("검색할 키워드를 입력하세요 : ");
-            
+            System.out.print("검색할 키워드를 입력하세요 : ");
+			String keyword = sc.next();
+			List<BookDto> books = bookController.findBookByTitle(keyword);
+			books.forEach(e -> {
+				System.out.println(e);
+			});
+			
             break;
          case 2 :
             System.out.println("대출 건수가 많은 상위 3권의 목록입니다.");
             
+            bookController.findBookTopN(3).forEach(e -> {
+				System.out.println(e);
+			 });
             break;
          case 3: return;
          default : System.out.println("잘못 입력하였습니다. 다시 입력하세요.");

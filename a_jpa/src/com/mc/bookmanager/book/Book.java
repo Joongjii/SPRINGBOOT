@@ -11,6 +11,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.mc.bookmanager.book.dto.BookDto;
 import com.mc.bookmanager.member.Member;
 
 import lombok.AllArgsConstructor;
@@ -45,5 +46,14 @@ public class Book {
 	
 	@ColumnDefault("0")
 	private Integer rentCnt;
+
+	public static Book createBook(BookDto dto) {
+		return Book.builder().title(dto.getTitle()).author(dto.getAuthor()).isbn(dto.getIsbn())
+				.category(dto.getCategory()).build();
+	}
+	
+	public void updateInfo(String info) {
+		this.info = info;
+	}
 	
 }

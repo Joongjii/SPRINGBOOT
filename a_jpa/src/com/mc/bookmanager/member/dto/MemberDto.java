@@ -38,24 +38,18 @@ public class MemberDto {
 		return entityList.stream().map(e-> new MemberDto(e)).collect(Collectors.toList());
 	}
 	
-	
-	
-	
-	
+
 //	public static MemberDto toDto(Member entity) {
 //		MemberDto member = new MemberDto();	
 //		member.setUserId(entity.getUserId());
 //		}
 	
-	
-	
+
 	
 //	public Member toEntity() {
 //		Member member = new Member();
 //		
 //	}
-	
-	
-	
+
 	
 }

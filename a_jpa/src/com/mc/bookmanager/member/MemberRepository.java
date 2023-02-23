@@ -15,7 +15,7 @@ public class MemberRepository {
 	
 	public List<Member> findMemberByRegDate(EntityManager em, LocalDateTime begin, LocalDateTime end){
 		
-		String jpql = "seelct m from Member m where m.regDate between :begin and :end";
+		String jpql = "select m from Member m where m.regDate between :begin and :end";
 		//TypedQuery<Member> query = e;
 	
 	return em.createQuery(jpql, Member.class)

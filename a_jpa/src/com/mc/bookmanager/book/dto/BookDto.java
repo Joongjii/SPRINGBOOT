@@ -37,7 +37,7 @@ public class BookDto {
 		this.rentCnt=entity.getRentCnt();
 	}
 	
-	public static List<BookDto> toDoList(List<Book> entityList){
+	public static List<BookDto> toDtoList(List<Book> entityList){
 		return entityList.stream().map(e-> new BookDto(e)).collect(Collectors.toList());
 	}
 	
