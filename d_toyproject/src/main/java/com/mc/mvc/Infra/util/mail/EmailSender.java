@@ -11,10 +11,10 @@ import com.mc.mvc.Infra.code.Code;
 import com.mc.mvc.Infra.code.ErrorCode;
 import com.mc.mvc.Infra.exception.HandlableException;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EmailSender {
 	
 	private final JavaMailSender mailSender;

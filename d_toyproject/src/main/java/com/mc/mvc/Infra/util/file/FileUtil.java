@@ -16,10 +16,10 @@ import com.mc.mvc.Infra.exception.HandlableException;
 import com.mc.mvc.Infra.util.file.dto.FilePathDto;
 import com.mc.mvc.Infra.util.file.dto.FileUploadDto;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class FileUtil {
    
    
